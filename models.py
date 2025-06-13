@@ -1,11 +1,16 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+# models.py
 
-Base = declarative_base()
+from tortoise import fields
+from tortoise.models import Model
+from fastapi_admin.models import AbstractAdmin
 
-class Product(Base):
-    __tablename__ = "products"
+class Product(Model):
+    id = fields.IntField(pk=True)
+    name = fields.CharField(max_length=255)
+    description = fields.TextField(null=True)
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(100))
-    description = Column(String(250))
+    def __str__(self):
+        return self.name
+
+class AdminUser(AbstractAdmin):
+    pass

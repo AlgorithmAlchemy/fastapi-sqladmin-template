@@ -1,31 +1,36 @@
 # main.py
+from fastapi import FastAPI
+from admin import admin_app, provider, ProductAdmin
+from config import DATABASE_URL, ADMIN_SECRET
+from tortoise import Tortoise
+from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-from admin import admin_app
-import models
-from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Инициализация Tortoise ORM
+    await Tortoise.init(
+        db_url=DATABASE_URL,
+        modules={"models": ["models"]}
+    )
+    await Tortoise.generate_schemas()
 
-app = FastAPI()
+    # Инициализация FastAPI Admin
+    await admin_app.init(
+        admin_secret=ADMIN_SECRET,
+        providers=[provider],
+        resources=[ProductAdmin],
+        admin_path="/admin",
+        templates_dir="templates",
+        login_footer="",
+    )
 
-# Static и Templates
-app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+    yield
 
-# Admin
+    # Завершение Tortoise ORM
+    await Tortoise.close_connections()
+
+# Создание приложения с lifespan
+app = FastAPI(lifespan=lifespan)
+
+# Монтирование админки
 app.mount("/admin", admin_app)
-
-# Роут на главную
-@app.get("/", response_class=HTMLResponse)
-async def read_index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-# Создание таблиц при старте
-@app.on_event("startup")
-async def startup_event():
-    engine = create_async_engine("sqlite+aiosqlite:///./test.db", echo=True)
-    async with engine.begin() as conn:
-        await conn.run_sync(models.Base.metadata.create_all)
