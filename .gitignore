@@ -191,3 +191,6 @@ Thumbs.db
 /module/chat_parser/Session
 /module/Inviter/session
 /module/Inviter/session_old
+/test.db
+/test.db-shm
+/test.db-wal
