@@ -2,9 +2,10 @@
 from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
-from sqladmin import Admin, ModelView
+from sqladmin import Admin
 
-from models import Base, Product
+from models import Base, Product, Category, User
+from admin import ProductAdmin, CategoryAdmin, UserAdmin
 
 DATABASE_URL = "sqlite+aiosqlite:///./test.db"
 
@@ -14,19 +15,15 @@ async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit
 app = FastAPI()
 
 
-# Создаём таблицы при запуске
 @app.on_event("startup")
 async def on_startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
 
-# Админка
-class ProductAdmin(ModelView, model=Product):
-    column_list = [Product.id, Product.name, Product.description]
-    name = "Product"
-    name_plural = "Products"
-    icon = "fa fa-box"
-
 admin = Admin(app, engine)
+
+# Регистрация всех моделей
 admin.add_view(ProductAdmin)
+admin.add_view(CategoryAdmin)
+admin.add_view(UserAdmin)
