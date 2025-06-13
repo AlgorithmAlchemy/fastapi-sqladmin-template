@@ -1,10 +1,4 @@
 # admin.py
-from fastapi_admin.app import app as admin_app
-from fastapi_admin.providers.login import UsernamePasswordProvider
-from fastapi_admin.resources import Model as AdminModel, Field
-from fastapi_admin.widgets import inputs
-from models import Product
-
 from sqladmin import ModelView
 from models import Product, Category, User
 
