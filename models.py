@@ -1,23 +1,27 @@
 # models.py
-from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import String, Integer
 
-Base = declarative_base()
+
+class Base(DeclarativeBase):
+    pass
+
 
 class Product(Base):
     __tablename__ = "products"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    description = Column(String)
-    category_id = Column(Integer, ForeignKey("categories.id"))
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String)
+    description: Mapped[str] = mapped_column(String)
+
 
 class Category(Base):
     __tablename__ = "categories"
-    id = Column(Integer, primary_key=True)
-    title = Column(String)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String)
+
 
 class User(Base):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    username = Column(String, unique=True)
-    password = Column(String)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    username: Mapped[str] = mapped_column(String)
+    email: Mapped[str] = mapped_column(String)
