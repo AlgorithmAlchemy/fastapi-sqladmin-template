@@ -1,36 +1,32 @@
 # main.py
 from fastapi import FastAPI
-from admin import admin_app, provider, ProductAdmin
-from config import DATABASE_URL, ADMIN_SECRET
-from tortoise import Tortoise
-from contextlib import asynccontextmanager
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker
+from sqladmin import Admin, ModelView
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Инициализация Tortoise ORM
-    await Tortoise.init(
-        db_url=DATABASE_URL,
-        modules={"models": ["models"]}
-    )
-    await Tortoise.generate_schemas()
+from models import Base, Product
 
-    # Инициализация FastAPI Admin
-    await admin_app.init(
-        admin_secret=ADMIN_SECRET,
-        providers=[provider],
-        resources=[ProductAdmin],
-        admin_path="/admin",
-        templates_dir="templates",
-        login_footer="",
-    )
+DATABASE_URL = "sqlite+aiosqlite:///./test.db"
 
-    yield
+engine = create_async_engine(DATABASE_URL)
+async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
-    # Завершение Tortoise ORM
-    await Tortoise.close_connections()
+app = FastAPI()
 
-# Создание приложения с lifespan
-app = FastAPI(lifespan=lifespan)
 
-# Монтирование админки
-app.mount("/admin", admin_app)
+# Создаём таблицы при запуске
+@app.on_event("startup")
+async def on_startup():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
+
+# Админка
+class ProductAdmin(ModelView, model=Product):
+    column_list = [Product.id, Product.name, Product.description]
+    name = "Product"
+    name_plural = "Products"
+    icon = "fa fa-box"
+
+admin = Admin(app, engine)
+admin.add_view(ProductAdmin)
