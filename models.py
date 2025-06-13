@@ -13,12 +13,11 @@ class Category(Base):
 
 class Product(Base):
     __tablename__ = "products"
-
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    description = Column(String)  # <- Добавляем описание
-    category_id = Column(Integer, ForeignKey("categories.id"))
+    category_id = Column(Integer, ForeignKey("categories.id"))  # <-- обязательно
     category = relationship("Category", back_populates="products")
+
 
 class User(Base):
     __tablename__ = "users"
