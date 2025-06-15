@@ -183,6 +183,22 @@ Thumbs.db
 *.bak
 
 # -------------------------
+# SQLite temporary and ShowYourWork database files
+# -------------------------
+
+_showyourwork.sqlite
+_showyourwork.sqlite-journal
+_showyourwork.sqlite-wal
+_showyourwork.sqlite-shm
+_showyourwork.*
+showyourwork.sqlite
+showyourwork.sqlite-journal
+showyourwork.sqlite-wal
+showyourwork.sqlite-shm
+*.sqlite
+*.sqlite3
+
+# -------------------------
 # Example custom ignored file
 # -------------------------
 /data/
