@@ -1,5 +1,5 @@
 # models.py
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Text
 from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
@@ -17,6 +17,7 @@ class Product(Base):
     name = Column(String)
     category_id = Column(Integer, ForeignKey("categories.id"))  # <-- обязательно
     category = relationship("Category", back_populates="products")
+    description = Column(Text)  # <- ЭТОГО НЕ ХВАТАЕТ В ТВОЁЙ МОДЕЛИ
 
 
 class User(Base):
