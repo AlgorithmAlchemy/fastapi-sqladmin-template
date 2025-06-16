@@ -4,7 +4,10 @@
 Проект — это REST API-приложение на базе **FastAPI** с интеграцией **SQLAlchemy**, **SQLAdmin**, поддержкой автогенерации таблиц и CRUD-интерфейса для всех моделей.
 
 
-![image](https://github.com/user-attachments/assets/96da0139-453a-4d16-96c1-4dbe547aa3f0)
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/96da0139-453a-4d16-96c1-4dbe547aa3f0" alt="dd_DeWatermark" width="500" />
+</p>
+
 
 ## 🚀 Возможности
 
