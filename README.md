@@ -5,7 +5,7 @@
 
 
 <p align="left">
-  <img src="https://github.com/user-attachments/assets/96da0139-453a-4d16-96c1-4dbe547aa3f0" alt="dd_DeWatermark" width="500" />
+  <img src="https://github.com/user-attachments/assets/96da0139-453a-4d16-96c1-4dbe547aa3f0" alt="dd_DeWatermark" width="700" />
 </p>
 
 
