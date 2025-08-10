@@ -7,6 +7,7 @@ import time
 
 WATCH_DIRS = ["./"]  # Можно добавить поддиректории, если нужно
 
+
 class ReloadHandler(FileSystemEventHandler):
     def __init__(self):
         self.process = None
@@ -29,6 +30,7 @@ class ReloadHandler(FileSystemEventHandler):
     def on_any_event(self, event):
         if event.src_path.endswith(".py"):
             self.restart_server()
+
 
 if __name__ == "__main__":
     event_handler = ReloadHandler()
