@@ -14,10 +14,10 @@ async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Здесь выполняется код при запуске
+    # This is where code is executed at startup
     print("Startup actions")
     yield
-    # Здесь выполняется код при завершении
+    # This is where code is executed at completion
     print("Shutdown actions")
 
 
