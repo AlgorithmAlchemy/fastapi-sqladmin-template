@@ -5,7 +5,7 @@ from watchdog.events import FileSystemEventHandler
 from pathlib import Path
 import time
 
-WATCH_DIRS = ["./"]  # Можно добавить поддиректории, если нужно
+WATCH_DIRS = ["./"]
 
 
 class ReloadHandler(FileSystemEventHandler):
@@ -14,12 +14,12 @@ class ReloadHandler(FileSystemEventHandler):
         self.start_server()
 
     def start_server(self):
-        print("🔄 Запуск Uvicorn...")
+        print("start Uvicorn...")
         self.process = subprocess.Popen([sys.executable, "-m", "uvicorn", "main:app"])
 
     def stop_server(self):
         if self.process:
-            print("🛑 Перезапуск сервера...")
+            print("Restarting the server...")
             self.process.terminate()
             self.process.wait()
 
@@ -40,13 +40,13 @@ if __name__ == "__main__":
         observer.schedule(event_handler, path=watch_dir, recursive=True)
 
     observer.start()
-    print("👀 Вотчдог следит за файлами...")
+    print("Watchdog keeps an eye on files...")
 
     try:
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
-        print("\n🧹 Завершается...")
+        print("\nExits...")
         event_handler.stop_server()
         observer.stop()
     observer.join()

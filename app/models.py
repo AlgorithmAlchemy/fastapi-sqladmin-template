@@ -16,9 +16,9 @@ class Product(Base):
     __tablename__ = "products"
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    category_id = Column(Integer, ForeignKey("categories.id"))  # <-- обязательно
+    category_id = Column(Integer, ForeignKey("categories.id"))
     category = relationship("Category", back_populates="products")
-    description = Column(Text)  # <- ЭТОГО НЕ ХВАТАЕТ В ТВОЁЙ МОДЕЛИ
+    description = Column(Text)
 
 
 class User(Base):

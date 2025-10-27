@@ -1,1 +1,1 @@
-console.log("JS загружен успешно!");
+console.log("JS Uploaded successfully!");
