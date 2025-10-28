@@ -40,7 +40,7 @@
 
 ```bash
 git clone https://github.com/AlgorithmAlchemy/fastapi-sqladmin-template
-cd твой-репо
+cd fastapi-sqladmin-template
 python -m venv venv
 source venv/bin/activate  #  .\venv\Scripts\activate  Windows
 pip install -r requirements.txt
