@@ -1,4 +1,4 @@
-# 🧩 - CRUD Admin
+# - CRUD Admin
 
 Проект — это REST API-приложение на базе **FastAPI** с интеграцией **SQLAlchemy**, **SQLAdmin**, поддержкой
 автогенерации таблиц и CRUD-интерфейса для всех моделей.
@@ -8,7 +8,7 @@
   <img src="https://github.com/user-attachments/assets/96da0139-453a-4d16-96c1-4dbe547aa3f0" alt="dd_DeWatermark" hight="450"  width="600" />
 </p>
 
-## 🚀 Возможности
+## Возможности
 
 - CRUD для моделей: `Product`, `Category`, `User`
 - Поддержка SQLAdmin панели
@@ -39,10 +39,10 @@
 ## Установка
 
 ```bash
-git clone https://github.com/твой-юзер/твой-репо.git
+git clone https://github.com/AlgorithmAlchemy/fastapi-sqladmin-template
 cd твой-репо
 python -m venv venv
-source venv/bin/activate  # или .\venv\Scripts\activate на Windows
+source venv/bin/activate  #  .\venv\Scripts\activate  Windows
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
@@ -54,31 +54,12 @@ uvicorn app.main:app --reload
 * [SQLAdmin](https://sqladmin.readthedocs.io/)
 * [Uvicorn](https://www.uvicorn.org/)
 
-## 🗂 Панель администратора
-
-После запуска доступна по адресу:
-
+## Панель администратора
 ```
 http://127.0.0.1:8000/admin
 ```
 
 ## Документация API
-
-Доступна по адресу:
-
 ```
 http://127.0.0.1:8000/docs
-```
-
-## Changelog
-
-Изменения проекта документируются в [CHANGELOG.md](./CHANGELOG.md).
-
-Этот проект лицензирован под MIT. См. файл [LICENSE](./LICENSE).
-
-```
- 
----
-
-Хочешь — могу добавить бейджи (CI, релиз, версия, license), автогенерацию документации, CI/CD pipeline или шаблон issue/PR.
 ```
